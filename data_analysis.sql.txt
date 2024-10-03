@@ -19,5 +19,3 @@ SELECT
 FROM apple_financial_data 
 GROUP BY Year 
 ORDER BY Year;
-
-"Add SQL Analysis Script"
