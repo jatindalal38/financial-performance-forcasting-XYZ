@@ -1,0 +1,23 @@
+# Load necessary libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+# Load the financial dataset
+data <- read_csv("../data/apple_financial_data.csv")
+
+# Convert Date to Date format
+data$Date <- as.Date(data$Date)
+
+# Yearly revenue calculation
+data$Year <- format(data$Date, "%Y")
+yearly_revenue <- data %>%
+    group_by(Year) %>%
+    summarise(Total_Revenue = sum(Revenue, na.rm = TRUE))
+
+# Plotting the yearly revenue
+ggplot(yearly_revenue, aes(x = Year, y = Total_Revenue)) +
+    geom_bar(stat = "identity", fill = "blue") +
+    theme_minimal() +
+    labs(title = "Apple Yearly Revenue", x = "Year", y = "Total Revenue") +
+    ggsave("../output/yearly_revenue.png")  # Save the plot
